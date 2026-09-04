@@ -284,3 +284,66 @@ for column in variables_to_plot:
     plt.xlabel(column)
 
     plt.show()
+# %%
+# ==========================================
+# STEP 21B: ABSENCE OUTLIERS
+# ==========================================
+
+    # Absences contains several unusually high values.
+    # We examine it separately to understand these observations.
+
+plt.figure(figsize=(10, 4))
+
+sns.boxplot(x=df["absences"])
+
+plt.title("Boxplot of Student Absences")
+plt.xlabel("Number of Absences")
+plt.show()
+# %%
+# ==========================================
+# INVESTIGATE ZERO FINAL GRADES
+# ==========================================
+
+# Count students who received a final grade of zero.
+
+zero_final_grades = (df["G3"] == 0).sum()
+
+print("Students with G3 = 0:", zero_final_grades)
+
+# Calculate the percentage of students with G3 = 0.
+
+zero_percentage = (zero_final_grades / len(df)) * 100
+
+print(f"Percentage of students with G3 = 0: {zero_percentage:.2f}%")
+# %%
+# ==========================================
+# ANALYZE STUDENTS WITH G3 = 0
+# ==========================================
+
+# Select students whose final grade is zero.
+
+zero_grade_students = df[df["G3"] == 0]
+
+# Compare their key variables.
+
+print("Average values for students with G3 = 0:")
+print(
+    zero_grade_students[
+        ["studytime", "absences", "G1", "G2"]
+    ].mean()
+)
+# %%
+# ==========================================
+# COMPARE ZERO-GRADE STUDENTS
+# ==========================================
+
+# Compare students with G3 = 0 against all students.
+
+comparison = pd.DataFrame({
+    "All Students": df[["studytime", "absences", "G1", "G2", "G3"]].mean(),
+    "G3 = 0 Students": zero_grade_students[
+        ["studytime", "absences", "G1", "G2", "G3"]
+    ].mean()
+})
+
+print(comparison)
