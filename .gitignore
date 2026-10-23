@@ -19,5 +19,8 @@ logs/
 .DS_Store
 Thumbs.db
 
-# Zed
-.zed/
+# Generated data and preprocessing artifacts
+artifacts/
+
+# Local VS Code settings
+.vscode/
