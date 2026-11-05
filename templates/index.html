@@ -1,0 +1,495 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Insights | Performance Predictor</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f3f6fb;
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+
+        .header {
+            background: linear-gradient(120deg, #10264a, #1e477e);
+            color: white;
+            padding: 35px 20px 55px;
+        }
+
+        .header-content {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .brand-icon {
+            background: #315b9b;
+            padding: 11px;
+            border-radius: 10px;
+            font-size: 22px;
+        }
+
+        .brand-name {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+        }
+
+        .header h1 {
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .header p {
+            color: #cbd9ee;
+            font-size: 15px;
+            line-height: 1.7;
+            max-width: 600px;
+        }
+
+        /* MAIN CONTENT */
+
+        .main-container {
+            max-width: 850px;
+            margin: -25px auto 0;
+            padding: 0 20px 40px;
+            position: relative;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 32px;
+            box-shadow: 0 8px 30px rgba(20, 40, 80, 0.08);
+            margin-bottom: 22px;
+        }
+
+        .section-heading {
+            font-size: 20px;
+            color: #18365f;
+            margin-bottom: 8px;
+        }
+
+        .section-description {
+            font-size: 14px;
+            color: #718096;
+            line-height: 1.6;
+            margin-bottom: 27px;
+        }
+
+        /* FORM */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+
+        .form-group {
+            margin-bottom: 5px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 9px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #d5deeb;
+            border-radius: 9px;
+            background: #fff;
+            color: #243b5a;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3267c8;
+            box-shadow: 0 0 0 3px rgba(50, 103, 200, 0.12);
+        }
+
+        .hint {
+            font-size: 12px;
+            color: #8996a8;
+            margin-top: 7px;
+            line-height: 1.5;
+        }
+
+        /* BUTTONS */
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        button {
+            padding: 15px;
+            border: none;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .predict-button {
+            flex: 1;
+            background: #2457bd;
+            color: white;
+        }
+
+        .predict-button:hover {
+            background: #19469f;
+        }
+
+        .reset-button {
+            background: #edf2f8;
+            color: #40536d;
+            padding-left: 23px;
+            padding-right: 23px;
+        }
+
+        .reset-button:hover {
+            background: #dfe7f1;
+        }
+
+        /* PREDICTION RESULT */
+
+        .result-card {
+            background: #edf4ff;
+            border: 1px solid #c9dcff;
+            border-radius: 14px;
+            padding: 27px;
+            text-align: center;
+            margin-top: 27px;
+        }
+
+        .result-label {
+            font-size: 16px;
+            font-weight: 700;
+            color: #244e9c;
+            margin-bottom: 12px;
+        }
+
+        .grade {
+            font-size: 44px;
+            font-weight: 750;
+            color: #245bd0;
+            margin-bottom: 7px;
+        }
+
+        .result-description {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .disclaimer {
+            font-size: 12px;
+            color: #718096;
+            line-height: 1.6;
+            margin-top: 18px;
+        }
+
+        .error {
+            margin-top: 20px;
+            padding: 14px;
+            background: #fff1f2;
+            color: #b42335;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        /* FOOTER */
+
+        .footer {
+            text-align: center;
+            padding: 10px 15px 30px;
+            color: #8996a8;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+
+            .header {
+                padding: 25px 20px 50px;
+            }
+
+            .header h1 {
+                font-size: 27px;
+            }
+
+            .card {
+                padding: 22px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .reset-button {
+                width: 100%;
+            }
+
+            .grade {
+                font-size: 36px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="header-content">
+
+            <div class="brand">
+                <div class="brand-icon">🎓</div>
+                <div class="brand-name">STUDENT INSIGHTS</div>
+            </div>
+
+            <h1>Student Performance Predictor</h1>
+
+            <p>
+                Explore student academic performance through
+                machine learning. Enter academic information
+                to estimate the student's final grade.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <main class="main-container">
+
+        <section class="card">
+
+            <h2 class="section-heading">
+                Student Academic Information
+            </h2>
+
+            <p class="section-description">
+                Provide the following academic details to generate
+                a prediction using our trained machine learning model.
+            </p>
+
+
+            <form action="/" method="POST" id="studentForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="studytime">
+                            Weekly Study Time
+                        </label>
+
+                        <select name="studytime" id="studytime" required>
+
+                            <option value="">Select study time</option>
+
+                            <option value="1"
+                            {% if request.form.get('studytime') == '1' %}selected{% endif %}>
+                                Less than 2 hours
+                            </option>
+
+                            <option value="2"
+                            {% if request.form.get('studytime') == '2' %}selected{% endif %}>
+                                2–5 hours
+                            </option>
+
+                            <option value="3"
+                            {% if request.form.get('studytime') == '3' %}selected{% endif %}>
+                                5–10 hours
+                            </option>
+
+                            <option value="4"
+                            {% if request.form.get('studytime') == '4' %}selected{% endif %}>
+                                More than 10 hours
+                            </option>
+
+                        </select>
+
+                        <div class="hint">
+                            Select the student's weekly study category.
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="absences">
+                            Number of Absences
+                        </label>
+
+                        <input
+                            type="number"
+                            name="absences"
+                            id="absences"
+                            min="0"
+                            step="1"
+                            value="{{ request.form.get('absences', '') }}"
+                            placeholder="e.g. 5"
+                            required
+                        >
+
+                        <div class="hint">
+                            Total number of school absences.
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="G1">
+                            First Period Grade (G1)
+                        </label>
+
+                        <input
+                            type="number"
+                            name="G1"
+                            id="G1"
+                            min="0"
+                            max="20"
+                            step="1"
+                            value="{{ request.form.get('G1', '') }}"
+                            placeholder="0–20"
+                            required
+                        >
+
+                        <div class="hint">
+                            FIRST GRADE
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="G2">
+                            Second Period Grade (G2)
+                        </label>
+
+                        <input
+                            type="number"
+                            name="G2"
+                            id="G2"
+                            min="0"
+                            max="20"
+                            step="1"
+                            value="{{ request.form.get('G2', '') }}"
+                            placeholder="0–20"
+                            required
+                        >
+
+                        <div class="hint">
+                            SECOND GRADE 
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="button-group">
+
+                    <button type="submit" class="predict-button">
+                        Generate Prediction →
+                    </button>
+
+                    <button
+                        type="button"
+                        class="reset-button"
+                        onclick="window.location.href='/'"
+                    >
+                        ↻ Reset
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            {% if prediction is not none %}
+
+                <div class="result-card">
+
+                    <div class="result-label">
+                        Prediction Result
+                    </div>
+
+                    <div class="grade">
+                        {{ prediction }} / 20
+                    </div>
+
+                    <div class="result-description">
+                        Estimated Final Mathematics Grade (G3)
+                    </div>
+
+                    <div class="disclaimer">
+                        This prediction is generated by a machine learning
+                        model and represents an estimate, not a guaranteed
+                        examination result.
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+
+            {% if error %}
+
+                <div class="error">
+                    {{ error }}
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+
+    <footer class="footer">
+        Student Insights | Student Performance Prediction Project
+    </footer>
+
+</body>
+
+</html>
